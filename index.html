@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/iconsfont.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <div class="popup-header">
+                <section class="popup__name-parameters">Название параметров&nbsp;<span id="popup__name-device"></span>
+                </section>
+                <div class="close-popup">&times;</div>
+            </div>
+            <div class="popup-line popup__title-line"><span class="present-value">Текущее
+                    название</span><span>Псевдоним</span>
+            </div>
+            <div class="popup-body"></div>
+        </div>
+    </div>
+    <div id="auth" hidden>
+        <div class="login-window__container">
+            <div class="login-window">
+                <div class="login-window__input-container">
+                    <img src="images/logo.png" alt="logo" height="80">
+                    <form class="input-container__form" autocomplete="on">
+                        <p class="form-header">Имя пользователя</p>
+                        <div class="input-box input-box-email">
+                            <input class="input_unfocus form__input-email" name="user" id="login" type="text"
+                                autocomplete="username">
+                            <i class="input-icon icon-person"></i>
+                        </div>
+
+                        <p class="form-header">Пароль</p>
+                        <div class="input-box input-box-password">
+                            <input class="input_unfocus form__input-password" name="password" id="password"
+                                type="password" autocomplete="current-password">
+                            <i class="input-icon btn-password icon-visibility-off"></i>
+                        </div>
+                        <button id="form__input-login" type="button" class="form__input-login">Войти</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper" hidden>
+        <div class="sidenav" hidden>
+            <div class="side-menu__btn"><i class="icon-burger"></i></div>
+            <div class="sidenav__top-block">
+                <img src="images/logo.png" alt="logo">
+            </div>
+            <nav>
+                <nav class="sidenav__block">
+                    <p>Проект</p>
+                    <button id="sidenav__project"><i class="icon-work"></i>Проект</button>
+                </nav>
+                <nav class="sidenav__block">
+                    <p>Устройства и данные</p>
+                    <button id="sidenav__devices"><i class="icon-lightbulb"></i>Устройства</button>
+                    <button id="sidenav__map"><i class="icon-explore"></i>Карта</button>
+                    <button id="sidenav__events"><i class="icon-list"></i>Журнал событий</button>
+
+                </nav>
+            </nav>
+        </div>
+        <div class="content">
+            <nav class="top-menu" hidden>
+                <div class="top-menu__item"><i class="icon-person"></i>Администратор
+                    <nav class="top-menu__item-options">
+                        <button id="button-logout"><i class="icon-logout"></i>Выйти</button>
+                    </nav>
+                </div>
+            </nav>
+            <div id="device-table" hidden>
+                <div class="device-table__wrap">
+                    <div id="pre-loading">
+                        <div class="loader"></div>
+                    </div>
+                    <div id="after-pre-loading" hidden>
+                        <div class="device-table__top">
+                            <p class="device-block__desc device-block__desc-t">Устройства</p>
+                            <button onclick="window.location.href = 'http://62.217.182.54/';" id="update-general-table"
+                                class="update-button">Обновить данные</button>
+                        </div>
+                        <div class="device-table__content">
+                            <table>
+                                <thead id="device-table__thead"></thead>
+                                <tbody id="device-table__tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="device-specific-params" hidden>
+                <div class="device-table__wrap">
+                    <div id="loading">
+                        <div class="loader"></div>
+                    </div>
+                    <div id="after-loading" hidden>
+                        <div id="after-loading-container" class="after-loading">
+                            <div class="device-table__top">
+                                <div id="device-specific-name" class="device-block__desc"></div>
+                                <button id="back-button" class="device-table__add-btn"><i
+                                        class="icon-to-left"></i>Назад</button>
+                            </div>
+                            <div class="filter-by-date"></div>
+                            <nav class="device-specific__nav">
+                                <button id="device-params-btn"
+                                    class="device-specific__nav-button device-specific__nav-button_active">Данные</button>
+                                <button id="charts-btn" class="device-specific__nav-button">Графики</button>
+                            </nav>
+                            <div id="device-table-content" class="device-table__content">
+                                <table id="device-params-table">
+                                    <thead id="device-specific-params__thead"></thead>
+                                    <tbody id="device-specific-params__tbody"></tbody>
+                                </table>
+                                <div id="charts-container" hidden></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="project" hidden>
+                <div id="project-loading">
+                    <div class="loader"></div>
+                </div>
+                <div id="project-after-loading" hidden>
+                    <div class="device-table__wrap">
+                        <div class="device-table__top">
+                            <div class="project__desc">Проект</div>
+                        </div>
+                        <div class="project-content">
+                            <p class="project-name"></p>
+                            <p class="date-of-project-creation"></p>
+                            <div class="project__information">
+                                <div>
+                                    <p>1</p>
+                                    <p>Пользователей</p>
+                                </div>
+                                <div>
+                                    <p id="number-of-devices"></p>
+                                    <p>Устройств</p>
+                                </div>
+                            </div>
+                            <section class="project-section">
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="map-block" hidden>
+                <div class="device-table__wrap">
+                    <div class="device-table__top">
+                        <div class="project__desc">Карта</div>
+                    </div>
+                    <div class="map-content">
+                        <div id="map-drawing"></div>
+                        <div class="map-widget">
+                            <div class="widget__dev-info">
+                                <div><i class="icon-lightbulb map-lightbulb"></i>Устройство</div>
+                                <div class="not-chosen">Не выбрано на карте</div>
+                            </div>
+                            <div class="current-readings" hidden>
+                                <div class="desc-widget">Последние данные<span id="current-readings-time"></span></div>
+                                <table>
+                                    <tbody id="current-readings__content"></tbody>
+                                </table>
+                            </div>
+                            <div class="map-chart" hidden>
+                                <div class="desc-widget">График энергии (Вт*Ч)</div>
+                                <section id="widget-chart"></section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="events" hidden>
+                <div class="device-table__wrap">
+                    <div id="events-loading">
+                        <div class="loader"></div>
+                    </div>
+                    <div id="after-events-loading" hidden>
+                        <div class="device-table__top">
+                            <p class="device-block__desc device-block__desc-t">Журнал событий</p>
+                        </div>
+                        <div class="device-table__content">
+                            <section class="events__filter">
+                                <div class="events__filter-item">
+                                    <p class="dropdown__title">Устройство</p>
+                                    <div class="dropdown">
+                                        <button id="events__filter-device" class="dropdown__button">Выбрать<i
+                                                id="icon-expand__device" class="icon-expand"></i></button>
+                                        <ul id="dropdown__device" class="dropdown__list dropdown__list-dev"></ul>
+                                        <input type="text" name="select-category" value="" hidden>
+                                    </div>
+                                </div>
+                                <div class="events__filter-item_par">
+                                    <p class="dropdown__title">Параметр</p>
+                                    <div class="dropdown">
+                                        <button id="events__filter-parameter" class="dropdown__button">Выбрать<i
+                                                id="icon-expand__parameter" class="icon-expand"></i></button>
+                                        <ul id="dropdown__parameter" class="dropdown__list"></ul>
+                                        <input type="text" name="select-category" value="" hidden>
+                                    </div>
+                                </div>
+                            </section>
+                            <table>
+                                <tbody id="events-table__tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.umd.js"></script>
+    <script src="js/change-par-name.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/events.js"></script>
+    <script src="js/charts-data.js"></script>
+</body>
+
+</html>
