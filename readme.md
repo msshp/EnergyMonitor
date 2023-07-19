@@ -1,0 +1,3 @@
+Ссылка на файл Figma: https://www.figma.com/file/KVlxry4zbN74tclcghJ14p/%D0%AD%D0%9D%D0%95%D0%A0%D0%93%D0%9E%D0%9C%D0%9E%D0%9D%D0%98%D0%A2%D0%9E%D0%A0?type=design&node-id=0%3A1&mode=design&t=M0h2WasFXLZvXSlq-1
+
+Ссылка на кликабельный макет Figma: https://www.figma.com/proto/KVlxry4zbN74tclcghJ14p/%D0%AD%D0%9D%D0%95%D0%A0%D0%93%D0%9E%D0%9C%D0%9E%D0%9D%D0%98%D0%A2%D0%9E%D0%A0?page-id=0%3A1&type=design&node-id=20-24&viewport=105%2C503%2C0.03&t=jA5xUlFLOYmqxsmJ-1&scaling=contain&starting-point-node-id=20%3A24&show-proto-sidebar=1&mode=design
